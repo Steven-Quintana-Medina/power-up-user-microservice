@@ -101,5 +101,9 @@ public class UserController {
     public ResponseEntity<Boolean> getUserEmployee(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(userHandler.getUserEmployee(id));
     }
+    @GetMapping("/client/{id}")
+    public ResponseEntity<String> getUserClient(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(userHandler.getUserClient(id));
+    }
 
 }

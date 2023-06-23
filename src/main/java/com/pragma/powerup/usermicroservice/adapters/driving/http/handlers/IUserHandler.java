@@ -11,4 +11,6 @@ public interface IUserHandler {
     boolean getUserOwner(Long id);
 
     boolean getUserEmployee(Long id);
+
+    String getUserClient(Long id);
 }

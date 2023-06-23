@@ -40,6 +40,6 @@ public class UserUseCaseTest {
     @Test
     public void testGetUserOwner() {
         userUseCase.getUserOwner(VALID_USER_OWNER);
-        verify(userPersistencePort).getOwner(VALID_USER_OWNER,2L);
+        verify(userPersistencePort).validUser(VALID_USER_OWNER,2L);
     }
 }

@@ -4,6 +4,7 @@ import com.pragma.powerup.usermicroservice.domain.model.User;
 
 public interface IUserPersistencePort {
     void saveUser(User user);
-    boolean getOwner(Long id, Long rol);
-    boolean getEmployee(Long id, Long rol);
+    boolean validUser(Long id, Long rol);
+
+    String getClient(Long id);
 }

@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DniNumberAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.domain.model.User;
@@ -29,13 +30,13 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     }
 
     @Override
-    public boolean getOwner(Long id, Long rol) {
+    public boolean validUser(Long id, Long rol) {
         return userRepository.findUserByIdAndRoleId(id,rol);
     }
 
     @Override
-    public boolean getEmployee(Long id, Long rol) {
-        return userRepository.findUserByIdAndRoleId(id,rol);
+    public String getClient(Long id) {
+        return userRepository.findPhoneById(id).orElseThrow(UserNotFoundException::new);
     }
 
 }

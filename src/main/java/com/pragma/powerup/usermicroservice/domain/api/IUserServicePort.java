@@ -12,4 +12,6 @@ public interface IUserServicePort {
     boolean getUserOwner(Long id);
 
     boolean getUserEmployee(Long id);
+
+    String getUserClient(Long id);
 }

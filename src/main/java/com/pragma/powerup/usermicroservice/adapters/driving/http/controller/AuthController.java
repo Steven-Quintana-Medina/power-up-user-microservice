@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.pragma.powerup.usermicroservice.config.Constants.*;
+import static com.pragma.powerup.usermicroservice.config.Constants.MESSAGE_SUCCESS;
+import static com.pragma.powerup.usermicroservice.config.Constants.PERSON_NOT_FOUND;
 
 
- @Tag(name = "Authentication", description = "Endpoints related to user authentication")
+@Tag(name = "Authentication", description = "Endpoints related to user authentication")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -42,10 +42,10 @@ public class AuthController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))
             })
     @PostMapping("/login")
-    public ResponseEntity<Map<String,String>> login(@Valid @RequestBody LoginReqDto loginReqDto) {
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginReqDto loginReqDto) {
         JwtResDto token = authHandler.login(loginReqDto);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", token.getToken());
-        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY,"valid user"));
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, "valid user"));
     }
 }

@@ -41,6 +41,7 @@ public class MainSecurity {
         http.cors().and().csrf().disable().authorizeHttpRequests(requests -> requests.requestMatchers("/auth/login", "/user/create-client/","/actuator/health","/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/user/create-owner/", "/user/owner/").hasRole("ADMIN")
                         .requestMatchers("/user/create-employee/", "/user/employee/").hasRole("OWNER")
+                        .requestMatchers("user/client/").hasRole("EMPLOYEE")
                         .anyRequest().authenticated()).formLogin().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
