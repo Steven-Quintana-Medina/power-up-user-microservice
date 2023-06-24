@@ -1,8 +1,7 @@
 <br />
 <div align="center">
-<h3 align="center">USER MICROSERVICE</h3>
-  <p align="center">
-  </p>
+<h3 align="center">SMALL SQUARE MICROSERVICE</h3>
+
 </div>
 
 ### Built With
@@ -34,21 +33,19 @@ To get a local copy up and running follow these steps.
 2. Open project
 3. Create a new database in MySQL called powerup-user
 4. update environment variables
-<br>
-4.1. edit configurations<br>
-![#](src/main/resources/img/stepOne.png)
-<br>
-4.2. DATABASE_URL=;DATABASE_USERNAME=;DATABASE_PASSWORD=;SERVER_PORT=;EXPIRE_DAYS_SECURITY=;KEYSECRET_SECURITY= 
-<br>
-copy this string into the "environment variables" field<br>
-![#](src/main/resources/img/stepTwo.png)
-<br>
-4.3 writes the respective values of each environment variable
-<br>
-![img.png](src/main/resources/img/stepThree.png)
-5. After the tables are created execute src/main/resources/data.sql content to populate the database
-6. Open Swagger UI and search the /auth/login endpoint and login with mail:daniela@gmail.com, password: admin
-
+   <br>
+   4.1. edit configurations<br>
+   ![#](src/main/resources/img/stepOne.png)
+   <br>
+   4.2. DATABASE_URL=;DATABASE_USERNAME=;DATABASE_PASSWORD=;SERVER_PORT=;EXPIRE_DAYS_SECURITY=;KEYSECRET_SECURITY=;
+   <br>
+   copy this string into the "environment variables" field<br>
+   ![#](src/main/resources/img/stepTwo.png)
+   <br>
+   4.3 writes the respective values of each environment variable
+   <br>
+   ![img.png](src/main/resources/img/stepThree.png)
+5. You must send the bearer token to be able to use some functionalities of this microservice
 <!-- USAGE -->
 ## Usage
 
