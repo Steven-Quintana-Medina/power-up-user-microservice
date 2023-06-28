@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.domain.model;
 
 public class User {
-    private Long id;
+    private final Long id;
     private String name;
     private String surname;
     private String dniNumber;

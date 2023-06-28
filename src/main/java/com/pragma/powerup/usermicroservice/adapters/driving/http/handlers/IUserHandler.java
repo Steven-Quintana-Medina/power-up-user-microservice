@@ -1,6 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.req.UserReqDto;
+
 public interface IUserHandler {
     void saveClient(UserReqDto userReqDto);
 
@@ -8,9 +9,11 @@ public interface IUserHandler {
 
     void saveEmployee(UserReqDto userReqDto);
 
-    boolean getUserOwner(Long id);
+    String validUserOwner(Long id);
 
-    boolean getUserEmployee(Long id);
+    String validUserEmployee(Long id);
 
     String getUserClient(Long id);
+
+    String getClientAndEmployee(Long idClient, Long idEmployee);
 }

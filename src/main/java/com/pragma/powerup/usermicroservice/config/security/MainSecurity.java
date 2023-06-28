@@ -18,13 +18,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class MainSecurity {
+    @Autowired
+    JwtEntryPoint jwtEntryPoint;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Autowired
-    JwtEntryPoint jwtEntryPoint;
 
     @Bean
     public JwtTokenFilter jwtTokenFilter() {
@@ -36,12 +36,13 @@ public class MainSecurity {
             AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeHttpRequests(requests -> requests.requestMatchers("/auth/login", "/user/create-client/","/actuator/health","/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/user/create-owner/", "/user/owner/").hasRole("ADMIN")
-                        .requestMatchers("/user/create-employee/", "/user/employee/").hasRole("OWNER")
-                        .requestMatchers("user/client/").hasRole("EMPLOYEE")
+        http.cors().and().csrf().disable().authorizeHttpRequests(requests -> requests.requestMatchers("/auth/login/", "/user/create-client/", "/actuator/health", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/user/create-owner/", "/user/owner/**").hasRole("ADMIN")
+                        .requestMatchers("/user/create-employee/", "/user/employee/**").hasRole("OWNER")
+                        .requestMatchers("/user/client/**", "/user/client-and-employee/").hasRole("EMPLOYEE")
                         .anyRequest().authenticated()).formLogin().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

@@ -1,13 +1,17 @@
 package com.pragma.powerup.usermicroservice.config;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
-import com.pragma.powerup.usermicroservice.domain.exceptions.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DniNumberAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserNotFoundException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.InvalidDniException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.InvalidPhoneException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.UnderAgeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 
 import java.time.format.DateTimeParseException;
 import java.util.Collections;
@@ -47,6 +51,7 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_PHONE));
     }
+
     @ExceptionHandler(InvalidDniException.class)
     public ResponseEntity<Map<String, String>> handleInvalidDniException(
             InvalidDniException invalidDniException) {
@@ -76,5 +81,11 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handleFormatDateException(DateTimeParseException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_DATE_FORMAT));
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<Map<String, String>> handleJsonProcessingException() {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, CONFLICT_MESSAGE));
     }
 }

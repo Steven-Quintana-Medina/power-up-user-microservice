@@ -10,6 +10,8 @@ import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class UserMysqlAdapter implements IUserPersistencePort {
     private final IUserRepository userRepository;
@@ -21,7 +23,7 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         if (userRepository.findByDniNumber(user.getDniNumber()).isPresent()) {
             throw new DniNumberAlreadyExistsException();
         }
-        if (userRepository.existsByMail(user.getMail())){
+        if (userRepository.existsByMail(user.getMail())) {
             throw new MailAlreadyExistsException();
         }
 
@@ -31,12 +33,17 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
     @Override
     public boolean validUser(Long id, Long rol) {
-        return userRepository.findUserByIdAndRoleId(id,rol);
+        return userRepository.findUserByIdAndRoleId(id, rol);
     }
 
     @Override
-    public String getClient(Long id) {
-        return userRepository.findPhoneById(id).orElseThrow(UserNotFoundException::new);
+    public User getUserClient(Long id) {
+        return userEntityMapper.toModel(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
+    }
+
+    @Override
+    public List<User> getClientAndEmployee(Long idClient, Long idEmployee) {
+        return userEntityMapper.toModel(userRepository.findByIds(idClient, idEmployee));
     }
 
 }

@@ -18,6 +18,7 @@ public class JwtEntryPoint implements AuthenticationEntryPoint {
     @Autowired
     @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver resolver;
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         resolver.resolveException(request, response, null, exception);

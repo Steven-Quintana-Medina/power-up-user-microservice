@@ -8,12 +8,12 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class PrincipalUser implements UserDetails {
-    private String id;
-    private String mail;
-    private String password;
-    private String rol;
+    private final String id;
+    private final String mail;
+    private final String password;
+    private final String rol;
 
-    public PrincipalUser(Long id , String mail, String password,String rol) {
+    public PrincipalUser(Long id, String mail, String password, String rol) {
         this.id = id.toString();
         this.mail = mail;
         this.password = password;
@@ -21,7 +21,7 @@ public class PrincipalUser implements UserDetails {
     }
 
     public static PrincipalUser build(UserEntity user, String rol) {
-        return new PrincipalUser(user.getId(),user.getMail(), user.getPassword(), rol);
+        return new PrincipalUser(user.getId(), user.getMail(), user.getPassword(), rol);
     }
 
     @Override

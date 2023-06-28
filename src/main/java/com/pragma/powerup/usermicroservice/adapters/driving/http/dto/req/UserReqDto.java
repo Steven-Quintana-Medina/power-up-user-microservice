@@ -17,22 +17,22 @@ public class UserReqDto {
     private String surname;
 
     @NotBlank
-    @Schema(title = "DniNumber", description = "dni of the person in numerical format",example = "1556461")
+    @Schema(title = "DniNumber", description = "dni of the person in numerical format", example = "1556461")
     private String dniNumber;
 
     @NotBlank
-    @Schema(title = "Phone", description = "Phone of a person in numerical format",example = "+578245648274")
+    @Schema(title = "Phone", description = "Phone of a person in numerical format", example = "+578245648274")
     private String phone;
 
     @NotBlank
-    @Schema(title = "BirthDate", description = "BirthDate of a person in format DD-MM-YYYY",example = "03-05-2005")
+    @Schema(title = "BirthDate", description = "BirthDate of a person in format DD-MM-YYYY", example = "03-05-2005")
     private String birthDate;
 
     @NotBlank
-    @Schema(title = "email", description = "email of a person",example = "Juan@gmail.com")
+    @Schema(title = "email", description = "email of a person", example = "Juan@gmail.com")
     private String mail;
 
     @NotBlank
-    @Schema(title = "password", description = "password of a person",example = "admin")
+    @Schema(title = "password", description = "password of a person", example = "admin")
     private String password;
 }

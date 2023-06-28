@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,9 +84,9 @@ public class UserController {
                     @ApiResponse(responseCode = "404", description = WRONG_CREDENTIALS_MESSAGE,
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))
             })
-    @GetMapping("/owner/{id}")
-    public ResponseEntity<Boolean> getUserOwner(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(userHandler.getUserOwner(id));
+    @GetMapping("owner/{id}")
+    public ResponseEntity<String> validUserOwner(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userHandler.validUserOwner(id));
     }
 
     @Operation(summary = "valid employee",
@@ -97,13 +98,28 @@ public class UserController {
                     @ApiResponse(responseCode = "404", description = WRONG_CREDENTIALS_MESSAGE,
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))
             })
-    @GetMapping("/employee/{id}")
-    public ResponseEntity<Boolean> getUserEmployee(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(userHandler.getUserEmployee(id));
+    @GetMapping("employee/{id}")
+    public ResponseEntity<String> validUserEmployee(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userHandler.validUserEmployee(id));
     }
-    @GetMapping("/client/{id}")
-    public ResponseEntity<String> getUserClient(@PathVariable Long id){
+
+    @Operation(summary = "valid employee",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = MESSAGE_SUCCESS,
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/MessageBoolean"))),
+                    @ApiResponse(responseCode = "401", description = PERSON_NOT_FOUND,
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/MessageBoolean"))),
+                    @ApiResponse(responseCode = "404", description = WRONG_CREDENTIALS_MESSAGE,
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))
+            })
+    @GetMapping(value = "client/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getUserClient(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(userHandler.getUserClient(id));
+    }
+
+    @GetMapping(value = "client-and-employee/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getUserClientAndEmployee(@RequestParam Long idClient, @RequestParam Long idEmployee) {
+        return ResponseEntity.status(HttpStatus.OK).body(userHandler.getClientAndEmployee(idClient, idEmployee));
     }
 
 }

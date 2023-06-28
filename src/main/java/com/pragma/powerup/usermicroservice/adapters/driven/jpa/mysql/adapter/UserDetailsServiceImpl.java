@@ -12,9 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
@@ -25,8 +22,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByMail(mail).orElseThrow(() -> new UserNotFoundException());
-        RoleEntity rol = rolRepository.findById(user.getIdRol()).orElseThrow(() -> new UserNotFoundException());;
+        UserEntity user = userRepository.findByMail(mail).orElseThrow(UserNotFoundException::new);
+        RoleEntity rol = rolRepository.findById(user.getIdRol()).orElseThrow(UserNotFoundException::new);
 
         return PrincipalUser.build(user, rol.getName());
     }

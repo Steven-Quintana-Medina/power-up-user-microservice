@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.domain.exceptions;
 
 public class InvalidDniException extends RuntimeException {
-    public InvalidDniException(){
+    public InvalidDniException() {
         super();
     }
 }

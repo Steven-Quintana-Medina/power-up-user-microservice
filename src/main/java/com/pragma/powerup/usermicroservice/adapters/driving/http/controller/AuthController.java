@@ -28,7 +28,7 @@ import static com.pragma.powerup.usermicroservice.config.Constants.PERSON_NOT_FO
 
 @Tag(name = "Authentication", description = "Endpoints related to user authentication")
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -41,7 +41,7 @@ public class AuthController {
                     @ApiResponse(responseCode = "404", description = PERSON_NOT_FOUND,
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))
             })
-    @PostMapping("/login")
+    @PostMapping("login/")
     public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginReqDto loginReqDto) {
         JwtResDto token = authHandler.login(loginReqDto);
         HttpHeaders headers = new HttpHeaders();
